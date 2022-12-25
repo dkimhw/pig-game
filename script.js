@@ -36,7 +36,7 @@ const newGameBtn = document.querySelector('.btn--new');
 // Set game score to zero and img to none
 gameState.player1.gameScoreDom.textContent = 0;
 gameState.player2.gameScoreDom.textContent = 0;
-
+diceImg.classList.add('hidden');
 
 /*
 Helper Functions
@@ -86,6 +86,7 @@ const reset = () => {
   playerTwo.gameScore = 0;
   playerTwo.currScoreDom.textContent = 0;
   playerTwo.gameScoreDom.textContent = 0;
+  diceImg.classList.add('hidden');
 
   currentPlayer = 'player1';
   enableButtons();
@@ -109,6 +110,7 @@ const diceRollOne = () => {
 rollDiceBtn.addEventListener('click', () => {
   let diceVal = rollDice();
   diceImg.src = `dice-${diceVal}.png`;
+  diceImg.classList.remove('hidden');
 
   if (diceVal === 1) {
     diceRollOne();
