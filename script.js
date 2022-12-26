@@ -7,6 +7,7 @@ Game state variables
 let currentPlayer = 'player1';
 const gameState = {
   player1: {
+    name: 'Player 1',
     gameScore: 0,
     currScore: 0,
     section: document.querySelector('.player--0'),
@@ -14,6 +15,7 @@ const gameState = {
     currScoreDom: document.querySelector('#current--0'),
   },
   player2: {
+    name: 'Player 2',
     gameScore: 0,
     currScore: 0,
     section: document.querySelector('.player--1'),
@@ -61,13 +63,11 @@ const enableButtons = () => {
 
 // Check win
 const checkWin = () => {
-  let playerOne = gameState['player1'];
-  let playerTwo = gameState['player2'];
-  if (playerOne.gameScore > 100) {
-    alert('Player 1 Won!');
-    disableButtons();
-  } else if (playerTwo.gameScore > 100) {
-    alert('Player 2 Won');
+  let activePlayer = gameState[currentPlayer];
+  // let playerTwo = gameState['player2'];
+  if (activePlayer.gameScore >= 100) {
+    alert(`${activePlayer.name} Won!`);
+    activePlayer.section.classList.add('player--winner');
     disableButtons();
   }
 };
@@ -76,6 +76,9 @@ const checkWin = () => {
 const reset = () => {
   let playerOne = gameState['player1'];
   let playerTwo = gameState['player2'];
+
+  playerOne.section.classList.remove('player--winner');
+  playerTwo.section.classList.remove('player--winner');
 
   playerOne.currScore = 0;
   playerOne.gameScore = 0;
@@ -134,7 +137,7 @@ holdBtn.addEventListener('click', () => {
   player.currScore = 0;
   player.currScoreDom.textContent = 0;
 
-  // Check if player own
+  // Check if player won
   checkWin();
 
   // Switch player
